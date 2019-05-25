@@ -18,11 +18,16 @@ class FizzBuzz {
         return String.valueOf(input);
     }
 
-    static Boolean isFizz(int input) {
-        return input % 3 == 0 || String.valueOf(input).contains("3");
+    private static Boolean isFizz(int input) {
+        return fizzOrBuzz(input, 3);
     }
 
-    static Boolean isBuzz(int input) {
-        return input % 5 == 0 || String.valueOf(input).contains("5");
+
+    private static Boolean isBuzz(int input) {
+        return fizzOrBuzz(input, 5);
+    }
+
+    private static boolean fizzOrBuzz(int input, int arg) {
+        return input % arg == 0 || String.valueOf(input).contains(String.valueOf(arg));
     }
 }

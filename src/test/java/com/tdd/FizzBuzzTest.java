@@ -18,7 +18,7 @@ class FizzBuzzTest {
             "53,'FizzBuzz'",
             "51,'FizzBuzz',"
     })
-    void test(int input, String words) {
-        assertThat(FizzBuzz.of(input)).isEqualTo(words);
+    void test(int num, String text) {
+        assertThat(FizzBuzz.of(num)).isEqualTo(text);
     }
 }
