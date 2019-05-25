@@ -1,8 +1,10 @@
+package com.tdd;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FizzBuzzTest {
+public class FizzBuzzTest {
     @Test
     void test() {
         assertEquals("1", FizzBuzz.of(1));

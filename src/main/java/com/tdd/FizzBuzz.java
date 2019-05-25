@@ -1,9 +1,8 @@
-class FizzBuzz {
+package com.tdd;
 
-    private FizzBuzz() {
-    }
+public class FizzBuzz {
 
-    static String of(int input) {
+    public static String of(int input) {
         if (input % 3 == 0 && input % 5 == 0) {
             return "FizzBuzz";
         }
@@ -14,6 +13,5 @@ class FizzBuzz {
             return "Buzz";
         }
         return String.valueOf(input);
-
     }
 }
