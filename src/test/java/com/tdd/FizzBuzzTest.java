@@ -1,15 +1,24 @@
 package com.tdd;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class FizzBuzzTest {
-    @Test
-    void test() {
-        assertEquals("1", FizzBuzz.of(1));
-        assertEquals("Fizz", FizzBuzz.of(3));
-        assertEquals("Buzz", FizzBuzz.of(5));
-        assertEquals("FizzBuzz", FizzBuzz.of(15));
+class FizzBuzzTest {
+    @ParameterizedTest(name = "should return {0} given {1}")
+    @CsvSource(value = {
+            "1,'1'",
+            "3,'Fizz'",
+            "5,'Buzz'",
+            "31,'Fizz'",
+            "52,'Buzz'",
+            "15,'FizzBuzz'",
+            "35,'FizzBuzz'",
+            "53,'FizzBuzz'",
+            "51,'FizzBuzz',"
+    })
+    void test(int input, String words) {
+        assertThat(FizzBuzz.of(input)).isEqualTo(words);
     }
 }
