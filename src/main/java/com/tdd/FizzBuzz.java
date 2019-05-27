@@ -1,33 +1,18 @@
 package com.tdd;
 
 class FizzBuzz {
-
-    private FizzBuzz() {
+    static String of(int num) {
+        if (isFizz(num) && isBuzz(num)) return "FizzBuzz";
+        if (isFizz(num)) return "Fizz";
+        if (isBuzz(num)) return "Buzz";
+        return String.valueOf(num);
     }
 
-    static String of(int input) {
-        if (isFizz(input) && isBuzz(input)) {
-            return "FizzBuzz";
-        }
-        if (isFizz(input)) {
-            return "Fizz";
-        }
-        if (isBuzz(input)) {
-            return "Buzz";
-        }
-        return String.valueOf(input);
+    private static boolean isBuzz(int num) {
+        return num % 5 == 0 || String.valueOf(num).contains("5");
     }
 
-    private static Boolean isFizz(int input) {
-        return fizzOrBuzz(input, 3);
-    }
-
-
-    private static Boolean isBuzz(int input) {
-        return fizzOrBuzz(input, 5);
-    }
-
-    private static boolean fizzOrBuzz(int input, int arg) {
-        return input % arg == 0 || String.valueOf(input).contains(String.valueOf(arg));
+    private static boolean isFizz(int num) {
+        return num % 3 == 0 || String.valueOf(num).contains("3");
     }
 }
