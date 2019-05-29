@@ -3,6 +3,12 @@ package com.tdd.args;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ Created with IntelliJ IDEA.
+ User: lai.yi
+ Date: 2019-05-29
+ Description: 定义参数用的schema
+ **/
 class Schema {
     private List<Flag> flags = new ArrayList<>();
 

@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-public class ParserTest {
-    Schema schema = new Schema(new String[]{"l:boolean", "p:integer", "d:string"});
+class ParserTest {
+    private Schema schema = new Schema(new String[]{"l:boolean", "p:integer", "d:string"});
 
     @Test
     void shouldReturnDefaultValueWhenGivenEmptyBooleanTag() throws ArgsException {
