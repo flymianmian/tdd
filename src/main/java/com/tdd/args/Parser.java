@@ -22,43 +22,56 @@ class Parser {
      *
      * @param tag 参数的标签用于匹配schema中的定义
      * @return 对应的参数值
-     * @throws ArgsException
+     * @throws ArgsException 参数异常
      */
     Object getValue(String tag) throws ArgsException {
         if (this.schema.containFlag(tag)) {
             Flag flag = this.schema.getFlag(tag);
             Argument argument = this.args.getArgument(tag);
             switch (flag.type) {
-                //布尔类型参数
+                // 布尔类型参数
                 case "boolean":
-                    if (null == argument || null == argument.value) {
-                        return false;
-                    }
-                    if (argument.value.equals("true")) {
-                        return true;
-                    }
-                    if (argument.value.equals("false")) {
-                        return false;
-                    }
-                    throw new ArgsException(String.format("Invalid value for argument %s, expect true/false got %s", argument.tag, argument.value));
+                    return getBooleanValue(argument);
                 // 整型参数
                 case "integer":
-                    if (null == argument.value) {
-                        return 0;
-                    }
-                    try {
-                        return Integer.parseInt(argument.value);
-                    } catch (NumberFormatException exception) {
-                        throw new ArgsException(String.format("Invalid value for argument %s, expect integer value got %s", argument.tag, argument.value));
-                    }
-                //字符串类型参数
+                    return getIntegerValue(argument);
+                // 字符串类型参数
                 case "string":
-                    return Objects.requireNonNullElse(argument.value, "");
+                    return getStringValue(argument);
+                // 未知类型参数
                 default:
                     throw new ArgsException(String.format("unknown value type: %s", flag.type));
             }
-        } else {
-            throw new ArgsException(String.format("can not find any argument with tag: %s", tag));
         }
+        // schema中没有定义过的tag
+        throw new ArgsException(String.format("can not find any argument with tag: %s", tag));
+    }
+
+    private String getStringValue(Argument argument) {
+        return Objects.requireNonNullElse(argument.value, "");
+    }
+
+    private Integer getIntegerValue(Argument argument) throws ArgsException {
+        if (null == argument.value) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(argument.value);
+        } catch (NumberFormatException exception) {
+            throw new ArgsException(String.format("Invalid value for argument %s, expect integer value got %s", argument.tag, argument.value));
+        }
+    }
+
+    private Boolean getBooleanValue(Argument argument) throws ArgsException {
+        if (null == argument) {
+            return false;
+        }
+        if (null == argument.value || argument.value.equals("true")) {
+            return true;
+        }
+        if (argument.value.equals("false")) {
+            return false;
+        }
+        throw new ArgsException(String.format("Invalid value for argument %s, expect true/false got %s", argument.tag, argument.value));
     }
 }

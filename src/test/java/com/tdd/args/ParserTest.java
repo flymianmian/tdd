@@ -12,7 +12,7 @@ class ParserTest {
     void shouldReturnDefaultValueWhenGivenEmptyBooleanTag() throws ArgsException {
         Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
         Parser parser = new Parser(schema, args);
-        assertThat(parser.getValue("l")).isEqualTo(false);
+        assertThat(parser.getValue("l")).isEqualTo(true);
     }
 
     @Test
@@ -71,15 +71,33 @@ class ParserTest {
     @Test
     void shouldReturnStringWhenGivenStringTag() throws ArgsException {
         Args args = new Args(new String[]{"-l", "-p", "-d /usr/logs"});
-        Parser parser = new Parser(schema,args);
+        Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("d")).isEqualTo("/usr/logs");
     }
 
     @Test
-    void shouldReturnDefaultValueWhenGivenEmptyStringTag() throws ArgsException{
-        Args args = new Args(new String[]{"-l","-p","-d"});
-        Parser parser = new Parser(schema,args);
+    void shouldReturnDefaultValueWhenGivenEmptyStringTag() throws ArgsException {
+        Args args = new Args(new String[]{"-l", "-p", "-d"});
+        Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("d")).isEqualTo("");
     }
 
+    @Test
+    void shoudThrowExceptionWhenGivenUnknownTag() {
+        Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
+        Parser parser = new Parser(schema, args);
+        assertThatThrownBy(() -> parser.getValue("g"))
+                .isInstanceOf(ArgsException.class)
+                .hasMessageContaining("can not find any argument with tag: g");
+    }
+
+    @Test
+    void shoudThrowExceptionWhenGivenUnknownValueType() {
+        Schema schema = new Schema(new String[]{"a:array"});
+        Args args = new Args(new String[]{"-a"});
+        Parser parser = new Parser(schema, args);
+        assertThatThrownBy(() -> parser.getValue("a"))
+                .isInstanceOf(ArgsException.class)
+                .hasMessageContaining("unknown value type: array");
+    }
 }

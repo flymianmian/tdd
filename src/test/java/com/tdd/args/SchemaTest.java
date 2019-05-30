@@ -41,5 +41,7 @@ class SchemaTest {
         flag = schema.getFlag("d");
         assertThat(flag.tag).isEqualTo("d");
         assertThat(flag.type).isEqualTo("string");
+        flag = schema.getFlag("g");
+        assertThat(flag).isNull();
     }
 }
