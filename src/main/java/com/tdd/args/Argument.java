@@ -22,18 +22,18 @@ class Argument {
     }
 
     Boolean getBooleanValue() throws ArgsException {
-        if (null == value || value.equals("false")) {
-            return false;
-        }
-        if (value.equals("true")) {
+        if (null == value || value.equals("true")) {
             return true;
+        }
+        if (value.equals("false")) {
+            return false;
         }
         throw new ArgsException(String.format("Invalid value for argument %s, expect true/false got %s", tag, value));
     }
 
     Integer getIntegerValue() throws ArgsException {
         if (null == value) {
-            return 0;
+            throw new ArgsException(String.format("Missing value part of integer argument: %s", tag));
         }
         try {
             return Integer.parseInt(value);
@@ -42,7 +42,10 @@ class Argument {
         }
     }
 
-    String getStringValue() {
+    String getStringValue() throws ArgsException{
+        if (null == value){
+            throw new ArgsException(String.format("Missing value part of string argument: %s", tag));
+        }
         return Objects.requireNonNullElse(value, "");
     }
 }

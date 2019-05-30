@@ -32,17 +32,17 @@ class Parser {
                     return argument == null ? false : argument.getBooleanValue();
                 // 整型参数
                 case "integer":
-                    return argument.getIntegerValue();
+                    return argument == null ? 0 : argument.getIntegerValue();
                 // 字符串类型参数
                 case "string":
-                    return argument.getStringValue();
+                    return argument == null ? "" : argument.getStringValue();
                 // 未知类型参数
                 default:
-                    throw new ArgsException(String.format("unknown value type: %s", flag.type));
+                    throw new ArgsException(String.format("Unknown value type: %s", flag.type));
             }
         }
         // schema中没有定义过的tag
-        throw new ArgsException(String.format("can not find any argument with tag: %s", tag));
+        throw new ArgsException(String.format("Can not find any argument with tag: %s", tag));
     }
 
 }
