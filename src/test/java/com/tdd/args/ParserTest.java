@@ -12,7 +12,7 @@ class ParserTest {
     void shouldReturnDefaultValueWhenGivenEmptyBooleanTag() throws ArgsException {
         Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
         Parser parser = new Parser(schema, args);
-        assertThat(parser.getValue("l")).isEqualTo(true);
+        assertThat(parser.getValue("l")).isEqualTo(false);
     }
 
     @Test
@@ -83,7 +83,7 @@ class ParserTest {
     }
 
     @Test
-    void shoudThrowExceptionWhenGivenUnknownTag() {
+    void shouldThrowExceptionWhenGivenUnknownTag() {
         Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
         Parser parser = new Parser(schema, args);
         assertThatThrownBy(() -> parser.getValue("g"))
@@ -92,7 +92,7 @@ class ParserTest {
     }
 
     @Test
-    void shoudThrowExceptionWhenGivenUnknownValueType() {
+    void shouldThrowExceptionWhenGivenUnknownValueType() {
         Schema schema = new Schema(new String[]{"a:array"});
         Args args = new Args(new String[]{"-a"});
         Parser parser = new Parser(schema, args);
