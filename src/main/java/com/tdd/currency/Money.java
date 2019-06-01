@@ -6,8 +6,9 @@ package com.tdd.currency;
  * Date: 2019-06-01
  * Description:
  **/
-abstract  class Money {
+abstract class Money {
     int amount;
+    String currency;
 
     static Dollar dollar(int amount) {
         return new Dollar(amount);
@@ -23,4 +24,8 @@ abstract  class Money {
     }
 
     abstract Money times(int multiplier);
+
+    public String currency(){
+        return this.currency;
+    }
 }
