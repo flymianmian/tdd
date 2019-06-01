@@ -10,9 +10,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Date: 2019-06-01
  * Description:
  **/
-public class MoneyTest {
+class MoneyTest {
     @Test
     void testEquality(){
-        assertThat(new Dollar(5)).isNotEqualTo(new Franc(5));
+        assertThat(Money.dollar(5)).isNotEqualTo(new Franc(5));
     }
 }
