@@ -3,3 +3,5 @@
 3. 将amount定为私有
 4. Dollar类有副作用吗？  DONE
 5. 钱数必须为整数？
+6. 实现equal()函数  DONE
+7. 实现hash()
