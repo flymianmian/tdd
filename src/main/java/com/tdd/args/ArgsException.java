@@ -1,13 +1,13 @@
 package com.tdd.args;
 
 /**
- Created with IntelliJ IDEA.
- User: lai.yi
- Date: 2019-05-29
- Description:
+ * Created with IntelliJ IDEA.
+ * User: lai.yi
+ * Date: 2019-05-30
+ * Description: 参数异常类
  **/
-public class ArgsException extends Throwable {
-    private final String message;
+class ArgsException extends Throwable {
+    private String message;
 
     ArgsException(String message) {
         this.message = message;

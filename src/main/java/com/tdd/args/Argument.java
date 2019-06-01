@@ -1,51 +1,50 @@
 package com.tdd.args;
 
-import java.util.Objects;
-
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
- * Date: 2019-05-29
+ * Date: 2019-05-30
  * Description: 对传入参数的封装
  **/
 class Argument {
 
-    String tag;
     String value;
+    String tag;
 
     Argument(String definition) {
-        String[] splitTexts = definition.split(" ");
-        this.tag = splitTexts[0].replace("-", "");
-        if (splitTexts.length > 1) {
-            this.value = splitTexts[1];
-        }
+        String[] slice = definition.split(" ");
+        this.tag = slice[0].replace("-", "");
+        this.value = slice.length > 1 ? slice[1] : null;
     }
 
-    Boolean getBooleanValue() throws ArgsException {
-        if (null == value || value.equals("true")) {
+    boolean getBooleanValue() throws ArgsException {
+        if (this.value == null) {
             return true;
         }
-        if (value.equals("false")) {
+        if (this.value.equals("true")) {
+            return true;
+        }
+        if (this.value.equals("false")) {
             return false;
         }
-        throw new ArgsException(String.format("Invalid value for argument %s, expect true/false got %s", tag, value));
+        throw new ArgsException(String.format("Invalid boolean value found: %s", this.value));
     }
 
-    Integer getIntegerValue() throws ArgsException {
-        if (null == value) {
-            throw new ArgsException(String.format("Missing value part of integer argument: %s", tag));
+    int getIntegerValue() throws ArgsException {
+        if (this.value == null) {
+            throw new ArgsException(String.format("No value found for integer argument: %s", this.tag));
         }
         try {
-            return Integer.parseInt(value);
+            return Integer.valueOf(this.value);
         } catch (NumberFormatException exception) {
-            throw new ArgsException(String.format("Invalid value for argument %s, expect integer value got %s", tag, value));
+            throw new ArgsException(String.format("Invalid integer value found: %s", this.value));
         }
     }
 
-    String getStringValue() throws ArgsException{
-        if (null == value){
-            throw new ArgsException(String.format("Missing value part of string argument: %s", tag));
+    String getStringValue() throws ArgsException {
+        if (this.value == null) {
+            throw new ArgsException(String.format("No value found for string argument: %s", this.tag));
         }
-        return Objects.requireNonNullElse(value, "");
+        return this.value;
     }
 }

@@ -5,122 +5,135 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+/**
+ * Created with IntelliJ IDEA.
+ * User: lai.yi
+ * Date: 2019-05-30
+ * Description:
+ **/
 class ParserTest {
     private Schema schema = new Schema(new String[]{"l:boolean", "p:integer", "d:string"});
 
     /**
-     * 布尔值参数测试
+     * boolean argument
      */
     @Test
-    void should_return_true_when_given_empty_value() throws ArgsException {
-        Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
+    void should_return_true_when_argument_tag_is_given() throws ArgsException {
+        Args args = new Args(new String[]{"-l"});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("l")).isEqualTo(true);
     }
 
     @Test
-    void should_return_false_when_not_given_value() throws ArgsException {
-        Args args = new Args(new String[]{"-p 1080", "-d /usr/logs"});
+    void should_return_false_when_argument_tag_is_not_given() throws ArgsException {
+        Args args = new Args(new String[]{});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("l")).isEqualTo(false);
     }
 
     @Test
-    void should_return_true_when_given_true_value() throws ArgsException {
-        Args args = new Args(new String[]{"-l true", "-p 1080", "-d /usr/logs"});
+    void should_return_true_when_argument_value_is_true() throws ArgsException {
+        Args args = new Args(new String[]{"-l true"});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("l")).isEqualTo(true);
     }
 
     @Test
-    void should_return_false_when_given_false_value() throws ArgsException {
-        Args args = new Args(new String[]{"-l false", "-p 1080", "-d /usr/logs"});
+    void should_return_false_when_argument_value_is_false() throws ArgsException {
+        Args args = new Args(new String[]{"-l false"});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("l")).isEqualTo(false);
     }
 
     @Test
-    void should_throw_exception_when_given_invalid_boolean_value() {
-        Args args = new Args(new String[]{"-l 123", "-p 1080", "-d /usr/logs"});
+    void should_throw_exception_when_boolean_argument_value_is_invalid() {
+        Args args = new Args(new String[]{"-l 123"});
         Parser parser = new Parser(schema, args);
         assertThatThrownBy(() -> parser.getValue("l"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Invalid value for argument l, expect true/false got 123");
+                .hasMessageContaining("Invalid boolean value found: 123");
     }
 
     /**
-     * 整数参数测试
+     * integer argument
      */
     @Test
-    void should_return_integer_when_given_integer_tag() throws ArgsException {
-        Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
+    void should_return_1080_when_1080_is_given() throws ArgsException {
+        Args args = new Args(new String[]{"-p 1080"});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("p")).isEqualTo(1080);
     }
 
     @Test
-    void should_throw_exception_when_given_empty_integer_tag() {
-        Args args = new Args(new String[]{"-l", "-p", "-d /usr/logs"});
+    void should_return_0_when_value_is_not_given() throws ArgsException {
+        Args args = new Args(new String[]{""});
         Parser parser = new Parser(schema, args);
-        assertThatThrownBy(() -> parser.getValue("p"))
-                .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Missing value part of integer argument: p");
+        assertThat(parser.getValue("p")).isEqualTo(0);
     }
 
     @Test
-    void should_throw_exception_when_given_invalid_integer_value() {
-        Args args = new Args(new String[]{"-l", "-p abc", "-d /usr/logs"});
+    void should_throw_exception_when_integer_argument_value_is_invalid() {
+        Args args = new Args(new String[]{"-p abc"});
         Parser parser = new Parser(schema, args);
         assertThatThrownBy(() -> parser.getValue("p"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Invalid value for argument p, expect integer value got abc");
+                .hasMessageContaining("Invalid integer value found: abc");
+    }
+
+    @Test
+    void should_throw_exception_when_integer_argument_value_is_empty() {
+        Args args = new Args(new String[]{"-p"});
+        Parser parser = new Parser(schema, args);
+        assertThatThrownBy(() -> parser.getValue("p"))
+                .isInstanceOf(ArgsException.class)
+                .hasMessageContaining("No value found for integer argument: p");
     }
 
     /**
-     * 字符串参数测试
+     * string argument
      */
     @Test
-    void should_return_string_when_given_string_tag() throws ArgsException {
-        Args args = new Args(new String[]{"-l", "-p", "-d /usr/logs"});
+    void should_return_abc_when_abc_is_given() throws ArgsException {
+        Args args = new Args(new String[]{"-d abc"});
         Parser parser = new Parser(schema, args);
-        assertThat(parser.getValue("d")).isEqualTo("/usr/logs");
+        assertThat(parser.getValue("d")).isEqualTo("abc");
     }
 
     @Test
-    void should_return_default_value_when_not_given_string_tag() throws ArgsException {
-        Args args = new Args(new String[]{"-l", "-p 1080"});
+    void should_return_empty_string_when_value_is_not_given() throws ArgsException {
+        Args args = new Args(new String[]{""});
         Parser parser = new Parser(schema, args);
         assertThat(parser.getValue("d")).isEqualTo("");
     }
 
     @Test
-    void should_throw_exception_when_given_string_tag_without_value() {
-        Args args = new Args(new String[]{"-l", "-p 1080", "-d"});
+    void should_throw_exception_when_string_argument_value_is_empty() {
+        Args args = new Args(new String[]{"-d"});
         Parser parser = new Parser(schema, args);
         assertThatThrownBy(() -> parser.getValue("d"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Missing value part of string argument: d");
+                .hasMessageContaining("No value found for string argument: d");
     }
 
     /**
-     * 异常参数测试
+     * exception
      */
     @Test
-    void should_throw_exception_when_given_unknown_tag() {
-        Args args = new Args(new String[]{"-l", "-p 1080", "-d /usr/logs"});
-        Parser parser = new Parser(schema, args);
+    void should_throw_exception_when_unknown_tag_is_given(){
+        Args args = new Args(new String[]{"g"});
+        Parser parser = new Parser(schema,args);
         assertThatThrownBy(() -> parser.getValue("g"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Can not find any argument with tag: g");
+                .hasMessageContaining("Invalid argument tag found: g");
     }
 
     @Test
-    void should_throw_exception_when_given_unknown_value_type() {
+    void should_throw_exception_when_unknown_type_is_given(){
         Schema schema = new Schema(new String[]{"a:array"});
-        Args args = new Args(new String[]{"-a this,is,an,array"});
-        Parser parser = new Parser(schema, args);
+        Args args = new Args(new String[]{"a this,is,an,array"});
+        Parser parser = new Parser(schema,args);
         assertThatThrownBy(() -> parser.getValue("a"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Unknown value type: array");
+                .hasMessageContaining("Invalid argument type found: a");
     }
 }
