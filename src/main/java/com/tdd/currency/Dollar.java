@@ -9,7 +9,7 @@ import java.util.Objects;
  * Description:
  **/
 public class Dollar {
-    int amount;
+    private int amount;
 
     Dollar(int amount) {
         this.amount = amount;
