@@ -1,0 +1,20 @@
+1. schema解析 "l:boolean p:integer d:string"后应包含3个flag
+2. schema解析 "l:boolean p:integer d:string"后应包含{'tag':'l','type':'boolean'}
+3. schema解析 "l:boolean p:integer d:string"后应包含{'tag':'p','type':'integer'}
+4. schema解析 "l:boolean p:integer d:string"后应包含{'tag':'d','type':'string'}
+5. schema解析 "p:integer p:string"后应抛出异常 提示flag重复
+6. schema解析 "l:float" 后应抛出异常，提示未知类型
+7. args 解析 "-l -p 1080 -d /usr/logs"后应包含3个argument
+8. args 解析 "-l -p 1080 -d /usr/logs"后应包含{'tag':'l', 'value': null}
+9. args 解析 "-l -p 1080 -d /usr/logs"后应包含{'tag':'p', 'value': 1808}
+10. args 解析 "-l -p 1080 -d /usr/logs"后应包含{'tag':'d', 'value': '/usr/logs'}
+11. args 解析 "-p 1080 -p 123" 后应该抛出异常 提示argument重复
+13. args 解析 "-x" 后应该抛出异常 未知类型tag
+14. 输入"-l"后args.getValue('l') 应该返回 true
+15. 输入""后args.getValue('l') 应该返回 false
+16. 输入"-l 123" 后getValue('l')应该抛出异常，提示非法值
+17。输入"-p 1080" 后args.getValue('p') 应该返回1080
+18. 输入""后args.getValue('a') 应该返回0
+19. 输入"-p" 后args.getValue('p') 应该抛出异常，提示值缺失
+20. 输入"-d /usr/logs"后 args.getValue('d') 应该返回 "/usr/logs"
+21. 输入"-d" 后 args.getValue('d') 应该抛出异常，提示值缺失
