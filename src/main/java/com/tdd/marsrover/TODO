@@ -11,15 +11,15 @@
 
 5. map = new Map (10,10) + map.addBarrier(new Barrier(15,5)) -> throw MapException("Barrier out of map!"")
 
-6. direction = Direction.East -> direction == Direction.East
+6. orientation = Direction.East -> orientation == Direction.East
 
 7. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)
 
-8. rover = Rover(Coordinate(5,5), Direction.East) -> rover.direction == Direction.East
+8. rover = Rover(Coordinate(5,5), Direction.East) -> rover.orientation == Direction.East
 
-9. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.direction == Direction.North
+9. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.orientation == Direction.North
 
-10. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.direction == Direction.South
+10. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.orientation == Direction.South
 
 11. rover = Rover(Coordinate(5,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
 

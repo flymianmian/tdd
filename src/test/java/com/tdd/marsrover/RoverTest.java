@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import static com.tdd.marsrover.Orientation.*;
+
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
@@ -27,17 +29,32 @@ class RoverTest {
 
 
     @Test
-    void testCreateRover() throws MarsRoverException{
-        Rover rover = new Rover(map, new Coordinate(5, 5), Direction.EAST);
+    void testCreateRover() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
         assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 5));
-        assertThat(rover.getDirection()).isEqualTo(Direction.EAST);
+        assertThat(rover.getOrientation()).isEqualTo(EAST);
     }
 
     @Test
     void should_throw_exception_when_rover_coordinate_is_out_of_map() {
-        assertThatThrownBy(() -> new Rover(map, new Coordinate(15, 5), Direction.EAST))
+        assertThatThrownBy(() -> new Rover(map, new Coordinate(15, 5), EAST))
                 .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Rover's coordinate(x:15, y:5) is out of map(width:10, height:10)");
+    }
 
+    @Test
+    void should_throw_exception_when_rover_coordinate_is_on_a_barrier() {
+        assertThatThrownBy(() -> new Rover(map, new Coordinate(5, 8), EAST))
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover encountered a barrier");
+    }
+
+    @Test
+    void testTurn() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        rover.turn(Rover.Direction.LEFT);
+        assertThat(rover.getOrientation()).isEqualTo(NORTH);
+        rover.turn(Rover.Direction.RIGHT);
+        assertThat(rover.getOrientation()).isEqualTo(EAST);
     }
 }

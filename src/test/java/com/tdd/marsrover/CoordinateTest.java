@@ -41,8 +41,8 @@ class CoordinateTest {
 
     @Test
     void testDirection() {
-        Direction east = Direction.EAST;
-        assertThat(east).isEqualTo(Direction.EAST);
-        assertThat(east).isNotEqualTo(Direction.WEST);
+        Orientation east = Orientation.EAST;
+        assertThat(east).isEqualTo(Orientation.EAST);
+        assertThat(east).isNotEqualTo(Orientation.WEST);
     }
 }

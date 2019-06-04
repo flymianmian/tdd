@@ -6,6 +6,6 @@ package com.tdd.marsrover;
  * Date: 2019-06-04
  * Description:
  **/
-public enum Direction {
+public enum Orientation {
     EAST,WEST,SOUTH,NORTH
 }
