@@ -1,5 +1,8 @@
 package com.tdd.marsrover;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
@@ -9,8 +12,10 @@ package com.tdd.marsrover;
 public class Map {
     private int width;
     private int height;
+    private List<Barrier> barriers = new ArrayList<>();
 
-    public Map(int width, int height) {
+    public
+    Map(int width, int height) {
         this.width = width;
         this.height = height;
     }
@@ -21,5 +26,13 @@ public class Map {
 
     int getHeight() {
         return height;
+    }
+
+    void addBarrier(Barrier barrier) {
+        this.barriers.add(barrier);
+    }
+
+    List<Barrier> getBarriers() {
+        return this.barriers;
     }
 }
