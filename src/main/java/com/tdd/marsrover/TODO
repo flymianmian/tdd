@@ -1,0 +1,35 @@
+1. map = new Map(10,10) -> map.width==10,map.height==10
+
+2. coordinate = new Coordinate(5,5) -> coordinate.x ==5 ,coordinate.y==5
+
+3. coordinate = new Coordinate(5,5) -> coordinate == new Coordinate(5,5)
+
+4. direction = Direction.East -> direction == Direction.East
+
+5. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)
+
+6. rover = Rover(Coordinate(5,5), Direction.East) -> rover.direction == Direction.East
+
+7. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.direction == Direction.North
+
+8. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.direction == Direction.South
+
+9. rover = Rover(Coordinate(5,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
+
+10. rover = Rover(Coordinate(5,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(4,5)
+
+11. rover = Rover(Coordinate(9,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(0,5)
+
+12. rover = Rover(Coordinate(0,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(9,5
+
+13. command = Command(Action.Forward) -> command.action = Action.Forward
+
+14. command = Command(Action.TurnRight) -> command.action = Action.TurnRight
+
+15. map= new Map (10,10)  + map.addBarrier(5,5) -> map.getBarriers().size()
+                                        == 1 and map.getBarriers().get(0).coordinate == new Coordinate(5,5)
+
+
+
+
+
