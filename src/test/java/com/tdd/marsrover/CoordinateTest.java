@@ -34,9 +34,9 @@ class CoordinateTest {
     @Test
     void testCoordinateIn() {
         Coordinate c1 = new Coordinate(5, 5);
-        assertThat(c1.in(10, 10)).isTrue();
+        assertThat(c1.in(new Map(10, 10))).isTrue();
         Coordinate c2 = new Coordinate(15, 5);
-        assertThat(c2.in(10, 10)).isFalse();
+        assertThat(c2.in(new Map(10, 10))).isFalse();
     }
 
     @Test

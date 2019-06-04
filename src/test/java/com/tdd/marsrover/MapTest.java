@@ -26,7 +26,7 @@ class MapTest {
     }
 
     @Test
-    void testAddBarrier() throws MapException {
+    void testAddBarrier() throws MarsRoverException {
         Map map = new Map(10, 10);
         Barrier barrier = new Barrier(new Coordinate(5, 5));
         map.addBarrier(barrier);
@@ -40,7 +40,7 @@ class MapTest {
         Map map = new Map(10, 10);
         Barrier barrier = new Barrier(new Coordinate(15, 5));
         assertThatThrownBy(() -> map.addBarrier(barrier))
-                .isInstanceOf(MapException.class)
+                .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Barrier(x:15 y:5) is out of Map(width:10,height:10)");
     }
 }

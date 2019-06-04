@@ -11,27 +11,27 @@
 
 5. map = new Map (10,10) + map.addBarrier(new Barrier(15,5)) -> throw MapException("Barrier out of map!"")
 
-5. direction = Direction.East -> direction == Direction.East
+6. direction = Direction.East -> direction == Direction.East
 
-6. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)
+7. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)
 
-7. rover = Rover(Coordinate(5,5), Direction.East) -> rover.direction == Direction.East
+8. rover = Rover(Coordinate(5,5), Direction.East) -> rover.direction == Direction.East
 
-8. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.direction == Direction.North
+9. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.direction == Direction.North
 
-9. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.direction == Direction.South
+10. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.direction == Direction.South
 
-10. rover = Rover(Coordinate(5,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
+11. rover = Rover(Coordinate(5,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
 
-11. rover = Rover(Coordinate(5,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(4,5)
+12. rover = Rover(Coordinate(5,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(4,5)
 
-12. rover = Rover(Coordinate(9,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(0,5)
+13. rover = Rover(Coordinate(9,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(0,5)
 
-13. rover = Rover(Coordinate(0,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(9,5
+14. rover = Rover(Coordinate(0,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(9,5
 
-14. command = Command(Action.Forward) -> command.action = Action.Forward
+15. command = Command(Action.Forward) -> command.action = Action.Forward
 
-15. command = Command(Action.TurnRight) -> command.action = Action.TurnRight
+16. command = Command(Action.TurnRight) -> command.action = Action.TurnRight
 
 
 

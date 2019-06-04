@@ -7,12 +7,21 @@ package com.tdd.marsrover;
  * Description:
  **/
 public class Rover {
-    public Rover(Map map, Coordinate coordinate, Direction direction) {
+    private final Map map;
+    private final Coordinate coordinate;
+    private final Direction direction;
 
+    public Rover(Map map, Coordinate coordinate, Direction direction) throws MarsRoverException {
+        if (!coordinate.in(map)) {
+            throw new MarsRoverException(String.format("Rover's coordinate(x:%d, y:%d) is out of map(width:%d, height:%d)", coordinate.getX(), coordinate.getY(), map.getWidth(), map.getHeight()));
+        }
+        this.map = map;
+        this.coordinate = coordinate;
+        this.direction = direction;
     }
 
     Coordinate getCoordinate() {
-        return new Coordinate(5,5);
+        return new Coordinate(5, 5);
     }
 
     Direction getDirection() {

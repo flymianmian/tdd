@@ -33,7 +33,7 @@ public class Coordinate {
                 y == that.y;
     }
 
-    boolean in(int width, int height) {
-        return this.x < width && this.y < height;
+    boolean in(Map map) {
+        return this.x < map.getWidth() && this.y < map.getHeight();
     }
 }

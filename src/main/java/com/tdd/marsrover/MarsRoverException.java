@@ -6,10 +6,10 @@ package com.tdd.marsrover;
  * Date: 2019-06-04
  * Description:
  **/
-class MapException extends Throwable{
+class MarsRoverException extends Throwable{
     private String message;
 
-    MapException(String message){
+    MarsRoverException(String message){
         this.message = message;
     }
 

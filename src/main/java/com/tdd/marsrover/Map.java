@@ -27,12 +27,12 @@ public class Map {
         return height;
     }
 
-    void addBarrier(Barrier barrier) throws MapException {
-        if (barrier.getCoordinate().in(this.width, this.height)) {
+    void addBarrier(Barrier barrier) throws MarsRoverException {
+        if (barrier.getCoordinate().in(this)) {
             this.barriers.add(barrier);
             return;
         }
-        throw new MapException(String.format("Barrier(x:%d y:%d) is out of Map(width:%d,height:%d)", barrier.getCoordinate().getX(), barrier.getCoordinate().getY(), this.width, this.height));
+        throw new MarsRoverException(String.format("Barrier(x:%d y:%d) is out of Map(width:%d,height:%d)", barrier.getCoordinate().getX(), barrier.getCoordinate().getY(), this.width, this.height));
 
     }
 
