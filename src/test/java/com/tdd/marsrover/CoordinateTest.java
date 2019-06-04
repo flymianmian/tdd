@@ -21,4 +21,20 @@ class CoordinateTest {
         assertThat(coordinate.getX()).isEqualTo(5);
         assertThat(coordinate.getY()).isEqualTo(5);
     }
+
+    @Test
+    void testCoordinateEqual(){
+        Coordinate c1 = new Coordinate(10,10);
+        Coordinate c2 = new Coordinate(10,10);
+        assertThat(c1).isEqualTo(c2);
+        Coordinate c3 = new Coordinate(5,5);
+        assertThat(c1).isNotEqualTo(c3);
+    }
+
+    @Test
+    void testDirection(){
+        Direction east = Direction.EAST;
+        assertThat(east).isEqualTo(Direction.EAST);
+        assertThat(east).isNotEqualTo(Direction.WEST);
+    }
 }
