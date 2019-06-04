@@ -9,6 +9,8 @@
 4. map= new Map (10,10)  + map.addBarrier(new Barrier(5,5)) -> map.getBarriers().size()
                                         == 1 and map.getBarriers().get(0).coordinate == new Coordinate(5,5)
 
+5. map = new Map (10,10) + map.addBarrier(new Barrier(15,5)) -> throw MapException("Barrier out of map!"")
+
 5. direction = Direction.East -> direction == Direction.East
 
 6. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)

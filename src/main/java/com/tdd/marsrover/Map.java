@@ -14,8 +14,7 @@ public class Map {
     private int height;
     private List<Barrier> barriers = new ArrayList<>();
 
-    public
-    Map(int width, int height) {
+    public Map(int width, int height) {
         this.width = width;
         this.height = height;
     }
@@ -28,8 +27,13 @@ public class Map {
         return height;
     }
 
-    void addBarrier(Barrier barrier) {
-        this.barriers.add(barrier);
+    void addBarrier(Barrier barrier) throws MapException {
+        if (barrier.getCoordinate().in(this.width, this.height)) {
+            this.barriers.add(barrier);
+            return;
+        }
+        throw new MapException(String.format("Barrier(x:%d y:%d) is out of Map(width:%d,height:%d)", barrier.getCoordinate().getX(), barrier.getCoordinate().getY(), this.width, this.height));
+
     }
 
     List<Barrier> getBarriers() {

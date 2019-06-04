@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,12 +26,21 @@ class MapTest {
     }
 
     @Test
-    void testAddBarrier() {
+    void testAddBarrier() throws MapException {
         Map map = new Map(10, 10);
         Barrier barrier = new Barrier(new Coordinate(5, 5));
         map.addBarrier(barrier);
         List<Barrier> barriers = map.getBarriers();
         assertThat(barriers.size()).isEqualTo(1);
         assertThat(barriers.get(0).getCoordinate()).isEqualTo(new Coordinate(5, 5));
+    }
+
+    @Test
+    void shouldThrowExceptionWhenBarrierOutOfMap() {
+        Map map = new Map(10, 10);
+        Barrier barrier = new Barrier(new Coordinate(15, 5));
+        assertThatThrownBy(() -> map.addBarrier(barrier))
+                .isInstanceOf(MapException.class)
+                .hasMessageContaining("Barrier(x:15 y:5) is out of Map(width:10,height:10)");
     }
 }

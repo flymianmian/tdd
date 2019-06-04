@@ -1,7 +1,5 @@
 package com.tdd.marsrover;
 
-import java.util.Objects;
-
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
@@ -33,5 +31,9 @@ public class Coordinate {
         Coordinate that = (Coordinate) o;
         return x == that.x &&
                 y == that.y;
+    }
+
+    boolean in(int width, int height) {
+        return this.x < width && this.y < height;
     }
 }

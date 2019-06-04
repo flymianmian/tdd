@@ -16,7 +16,7 @@ class RoverTest {
     private Map map = new Map(10, 10);
 
     @BeforeEach
-    void initMap() {
+    void initMap() throws MapException {
         Barrier barrier1 = new Barrier(new Coordinate(3, 3));
         Barrier barrier2 = new Barrier(new Coordinate(5, 8));
         Barrier barrier3 = new Barrier(new Coordinate(7, 9));

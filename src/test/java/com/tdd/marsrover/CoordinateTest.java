@@ -13,26 +13,34 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
  **/
 class CoordinateTest {
     @Test
-    void testCoordinate(){
-        Coordinate coordinate = new Coordinate(10,10);
+    void testCoordinate() {
+        Coordinate coordinate = new Coordinate(10, 10);
         assertThat(coordinate.getX()).isEqualTo(10);
         assertThat(coordinate.getY()).isEqualTo(10);
-        coordinate = new Coordinate(5,5);
+        coordinate = new Coordinate(5, 5);
         assertThat(coordinate.getX()).isEqualTo(5);
         assertThat(coordinate.getY()).isEqualTo(5);
     }
 
     @Test
-    void testCoordinateEqual(){
-        Coordinate c1 = new Coordinate(10,10);
-        Coordinate c2 = new Coordinate(10,10);
+    void testCoordinateEqual() {
+        Coordinate c1 = new Coordinate(10, 10);
+        Coordinate c2 = new Coordinate(10, 10);
         assertThat(c1).isEqualTo(c2);
-        Coordinate c3 = new Coordinate(5,5);
+        Coordinate c3 = new Coordinate(5, 5);
         assertThat(c1).isNotEqualTo(c3);
     }
 
     @Test
-    void testDirection(){
+    void testCoordinateIn() {
+        Coordinate c1 = new Coordinate(5, 5);
+        assertThat(c1.in(10, 10)).isTrue();
+        Coordinate c2 = new Coordinate(15, 5);
+        assertThat(c2.in(10, 10)).isFalse();
+    }
+
+    @Test
+    void testDirection() {
         Direction east = Direction.EAST;
         assertThat(east).isEqualTo(Direction.EAST);
         assertThat(east).isNotEqualTo(Direction.WEST);
