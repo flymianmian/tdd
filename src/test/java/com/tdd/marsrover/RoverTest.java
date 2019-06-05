@@ -95,7 +95,7 @@ class RoverTest {
     }
 
     @Test
-    void should_stay_when_rover_move_to_a_barrier() throws MarsRoverException {
+    void test_move_to_barrier() throws MarsRoverException {
         Rover rover1 = new Rover(map, new Coordinate(4, 8), EAST);
         assertThatThrownBy(rover1::moveForward)
                 .isInstanceOf(MarsRoverException.class)
@@ -109,6 +109,21 @@ class RoverTest {
     }
 
     @Test
+    void should_stay_when_move_to_map_boundary() throws MarsRoverException {
+        Rover rover1 = new Rover(map, new Coordinate(9, 5), EAST);
+        assertThatThrownBy(rover1::moveForward)
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to the map boundary");
+        assertThat(rover1.getCoordinate()).isEqualTo(new Coordinate(9, 5));
+        Rover rover2 = new Rover(map, new Coordinate(0, 5), EAST);
+        assertThatThrownBy(rover2::moveBackward)
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to the map boundary");
+        assertThat(rover2.getCoordinate()).isEqualTo(new Coordinate(0, 5));
+    }
+
+
+    @Test
     void should_receive_command() throws MarsRoverException {
         Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
         rover.receiveCommand("FBLR");
@@ -120,10 +135,41 @@ class RoverTest {
     }
 
     @Test
-    void should_throw_exception_when_receive_wrong_command() throws MarsRoverException{
+    void should_throw_exception_when_receive_wrong_command() throws MarsRoverException {
         Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
-        assertThatThrownBy(()->rover.receiveCommand("FBALR"))
+        assertThatThrownBy(() -> rover.receiveCommand("FBALR"))
                 .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Unknown command: A");
+    }
+
+    @Test
+    void should_excute_command() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        rover.receiveCommand("FLFFR");
+        rover.executeCommand();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(6, 7));
+        assertThat(rover.getOrientation()).isEqualTo(EAST);
+    }
+
+    @Test
+    void should_stay_and_throw_exception_when_rover_move_to_a_barrier() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        rover.receiveCommand("LFFF");
+        assertThatThrownBy(rover::executeCommand)
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to a barrier (x:5, y:8)");
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 7));
+        assertThat(rover.getOrientation()).isEqualTo(NORTH);
+    }
+
+    @Test
+    void should_stay_and_throw_exception_when_rover_move_to_the_map_boundary() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        rover.receiveCommand("FFFFF");
+        assertThatThrownBy(rover::executeCommand)
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to the map boundary");
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(9, 5));
+        assertThat(rover.getOrientation()).isEqualTo(EAST);
     }
 }

@@ -31,6 +31,27 @@ public class Rover {
         return this.commands;
     }
 
+    void executeCommand() throws MarsRoverException {
+        for (String c : this.commands) {
+            switch (c) {
+                case "F":
+                    this.moveForward();
+                    break;
+                case "B":
+                    this.moveBackward();
+                    break;
+                case "L":
+                    this.turnLeft();
+                    break;
+                case "R":
+                    this.turnRight();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private enum Direction {
         FORWARD, BACKWARD
     }
@@ -105,7 +126,17 @@ public class Rover {
         if (encounteredBarrier(newCoordinate)) {
             throw new MarsRoverException(String.format("Rover is move to a barrier %s", newCoordinate.toString()));
         }
+        if (isMapBoundary(newCoordinate)) {
+            throw new MarsRoverException("Rover is move to the map boundary");
+        }
         this.coordinate = newCoordinate;
+    }
+
+    private boolean isMapBoundary(Coordinate coordinate) {
+        return coordinate.getX() == map.getWidth() ||
+                coordinate.getY() == map.getHeight() ||
+                coordinate.getX() == -1 ||
+                coordinate.getY() == -1;
     }
 
     void moveForward() throws MarsRoverException {
