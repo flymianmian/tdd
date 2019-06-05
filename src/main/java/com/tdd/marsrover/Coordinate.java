@@ -33,6 +33,11 @@ public class Coordinate {
                 y == that.y;
     }
 
+    @Override
+    public String toString() {
+        return String.format("(x:%d, y:%d)", x, y);
+    }
+
     boolean in(Map map) {
         return this.x < map.getWidth() && this.y < map.getHeight();
     }

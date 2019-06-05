@@ -39,14 +39,14 @@ class RoverTest {
     void should_throw_exception_when_rover_coordinate_is_out_of_map() {
         assertThatThrownBy(() -> new Rover(map, new Coordinate(15, 5), EAST))
                 .isInstanceOf(MarsRoverException.class)
-                .hasMessageContaining("Rover's coordinate(x:15, y:5) is out of map(width:10, height:10)");
+                .hasMessageContaining("Rover's coordinate (x:15, y:5) is out of map (width:10, height:10)");
     }
 
     @Test
-    void should_throw_exception_when_rover_coordinate_is_on_a_barrier() {
+    void should_throw_exception_when_rover_s_start_coordinate_is_on_a_barrier() {
         assertThatThrownBy(() -> new Rover(map, new Coordinate(5, 8), EAST))
                 .isInstanceOf(MarsRoverException.class)
-                .hasMessageContaining("Rover's coordinate(x:5, y:8) encountered a barrier");
+                .hasMessageContaining("Rover's start coordinate (x:5, y:8) is a barrier");
     }
 
     @Test
@@ -77,5 +77,33 @@ class RoverTest {
         assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(6, 5));
         rover.moveBackward();
         assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 5));
+        rover.turnLeft();
+        rover.moveForward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 6));
+        rover.moveBackward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 5));
+        rover.turnLeft();
+        rover.moveForward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(4, 5));
+        rover.moveBackward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 5));
+        rover.turnLeft();
+        rover.moveForward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 4));
+        rover.moveBackward();
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(5, 5));
+    }
+
+    @Test
+    void should_stay_when_rover_move_to_a_barrier() throws MarsRoverException {
+        Rover rover1 = new Rover(map, new Coordinate(4, 8), EAST);
+        assertThatThrownBy(() -> rover1.moveForward())
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
+        assertThat(rover1.getCoordinate()).isEqualTo(new Coordinate(4, 8));
+        Rover rover2 = new Rover(map, new Coordinate(6, 8), EAST);
+        assertThatThrownBy(()->rover2.moveBackward())
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
     }
 }
