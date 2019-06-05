@@ -45,4 +45,10 @@ class CoordinateTest {
         assertThat(east).isEqualTo(Orientation.EAST);
         assertThat(east).isNotEqualTo(Orientation.WEST);
     }
+
+    @Test
+    void testToString(){
+        Coordinate coordinate = new Coordinate(5,5);
+        assertThat(coordinate.toString()).isEqualTo("(x:5, y:5)");
+    }
 }

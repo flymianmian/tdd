@@ -44,17 +44,23 @@ public class Rover {
         return this.orientation;
     }
 
-    void turnLeft() {
-        int index = (this.orientation.ordinal() + 3) % 4;
+    private void turn(int offset) {
+        int enumSize = Orientation.values().length;
+        int index = (this.orientation.ordinal() + offset + enumSize) % enumSize;
         this.orientation = Orientation.values()[index];
+    }
+
+    void turnLeft() {
+        int offset = -1;
+        turn(offset);
     }
 
     void turnRight() {
-        int index = (this.orientation.ordinal() + 5) % 4;
-        this.orientation = Orientation.values()[index];
+        int offset = 1;
+        turn(offset);
     }
 
-    int getXStep(Direction direction) {
+    private int getXStep(Direction direction) {
         if (orientation == Orientation.EAST) {
             return direction == Direction.FORWARD ? 1 : -1;
         }
@@ -64,7 +70,7 @@ public class Rover {
         return 0;
     }
 
-    int getYStep(Direction direction) {
+    private int getYStep(Direction direction) {
         if (orientation == Orientation.NORTH) {
             return direction == Direction.FORWARD ? 1 : -1;
         }
@@ -74,7 +80,7 @@ public class Rover {
         return 0;
     }
 
-    void move(Direction direction) throws MarsRoverException {
+    private void move(Direction direction) throws MarsRoverException {
         int xStep = getXStep(direction);
         int yStep = getYStep(direction);
         Coordinate newCoordinate = new Coordinate(this.coordinate.getX() + xStep, this.coordinate.getY() + yStep);

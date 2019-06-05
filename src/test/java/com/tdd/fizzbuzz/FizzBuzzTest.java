@@ -1,4 +1,4 @@
-package com.tdd;
+package com.tdd.fizzbuzz;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -11,11 +11,11 @@ class FizzBuzzTest {
             "1,'1'",
             "3,'Fizz'",
             "5,'Buzz'",
-            "15,'FizzBuzz'",
+            "15,'com.tdd.FizzBuzz'",
             "13,'Fizz'",
             "52,'Buzz'",
-            "35,'FizzBuzz'",
-            "53,'FizzBuzz'",
+            "35,'com.tdd.FizzBuzz'",
+            "53,'com.tdd.FizzBuzz'",
     })
     void test(int num, String text) {
         assertThat(FizzBuzz.of(num)).isEqualTo(text);
