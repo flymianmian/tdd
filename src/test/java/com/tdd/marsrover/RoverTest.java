@@ -143,7 +143,7 @@ class RoverTest {
     }
 
     @Test
-    void should_excute_command() throws MarsRoverException {
+    void should_execute_command() throws MarsRoverException {
         Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
         rover.receiveCommand("FLFFR");
         rover.executeCommand();

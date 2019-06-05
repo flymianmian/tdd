@@ -1,39 +1,44 @@
 1. map = new Map(10,10) -> map.width==10,map.height==10
 
 2. coordinate = new Coordinate(5,5) -> coordinate.x ==5 ,coordinate.y==5
-。
+
 3. coordinate = new Coordinate(5,5) -> coordinate == new Coordinate(5,5)
 
 4. barrier = new Barrier(6,6) -> barrier.coordinate= new Coordinate(6,6)
 
-4. map= new Map (10,10)  + map.addBarrier(new Barrier(5,5)) -> map.getBarriers().size()
+5. map= new Map (10,10)  + map.addBarrier(new Barrier(5,5)) -> map.getBarriers().size()
                                         == 1 and map.getBarriers().get(0).coordinate == new Coordinate(5,5)
 
-5. map = new Map (10,10) + map.addBarrier(new Barrier(15,5)) -> throw MapException("Barrier out of map!"")
+6. map = new Map (10,10) + map.addBarrier(new Barrier(15,5)) -> throw MarsRoverException("Barrier out of map!"")
 
-6. orientation = Direction.East -> orientation == Direction.East
+7. orientation = Oriental.East -> orientation == Oriental.East
 
-7. rover = Rover(Coordinate(5,5), Direction.East) -> rover.coordinate == new Coordinate(5,5)
+8. rover = Rover(Coordinate(5,5), Oriental.East) -> rover.coordinate == new Coordinate(5,5)
 
-8. rover = Rover(Coordinate(5,5), Direction.East) -> rover.orientation == Direction.East
+9. rover = Rover(Coordinate(5,5), Oriental.East) -> rover.orientation == Oriental.East
 
-9. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnLeft() -> rover.orientation == Direction.North
+10. rover = Rover(Coordinate(-1,5),Oriental.East) -> throw MarsRoverException("rover init coordinate is barrier")
 
-10. rover = Rover(Coordinate(5,5), Direction.East) + rover.turnRight() -> rover.orientation == Direction.South
+11. rover = Rover(Coordinate(5,5), Oriental.East) + rover.turnLeft() -> rover.orientation == Oriental.North
 
-11. rover = Rover(Coordinate(5,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
+12. rover = Rover(Coordinate(5,5), Oriental.East) + rover.turnRight() -> rover.orientation == Oriental.South
 
-12. rover = Rover(Coordinate(5,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(4,5)
+13. rover = Rover(Coordinate(5,5), Oriental.East) + rover.forward() -> rover.coordinate == new Coordinate(6,5)
 
-13. rover = Rover(Coordinate(9,5), Direction.East) + rover.forward() -> rover.coordinate == new Coordinate(0,5)
+14. rover = Rover(Coordinate(5,5), Oriental.East) + rover.backward() -> rover.coordinate == new Coordinate(4,5)
 
-14. rover = Rover(Coordinate(0,5), Direction.East) + rover.backward() -> rover.coordinate == new Coordinate(9,5
+15. rover = Rover(Coordinate(9,5), Oriental.East) + rover.forward() -> throw MarsRoverException("reach map boundary")
 
-15. command = Command(Action.Forward) -> command.action = Action.Forward
+16. rover = Rover(Coordinate(0,5), Oriental.East) + rover.backward() -> throw MarsRoverException("reach map boundary")
 
-16. command = Command(Action.TurnRight) -> command.action = Action.TurnRight
+17. rover.receiveCommand("FFFF") -> rover.getCommands().size()==4
 
+18. rover.receiveCommand("FBAL") -> throw MarsRoverException("Unknown command: A")
 
+19. rover = Rover(Coordinate(5,5), Oriental.East) + rover.receiveCommand("FLFFR") -> rover.coordinate == new Coordinate(6,7)
+
+20. rover = Rover(Coordinate(5,5), Oriental.East) + rover.receiveCommand("BBBBBB") ->
+                    throw MarsRoverException("reach boundary of map") + rover.coordinate == new Coordinate(0,5)
 
 
 

@@ -20,3 +20,7 @@
 19. 输入"-p" 后args.getValue('p') 应该抛出异常，提示值缺失
 20. 输入"-d /usr/logs"后 args.getValue('d') 应该返回 "/usr/logs"
 21. 输入"-d" 后 args.getValue('d') 应该抛出异常，提示值缺失
+
+22. schema.addFlag("a:array") 后 应包含{"tag":"a","type":"array"}
+23. 输入 "-a it,is,an,array" 后 args.getValue('a')返回['it','is','an','array']
+24. 输入 "-a" 后 args.getValue('a')抛出异常，提示值缺失
