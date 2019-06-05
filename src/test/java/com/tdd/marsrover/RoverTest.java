@@ -97,13 +97,14 @@ class RoverTest {
     @Test
     void should_stay_when_rover_move_to_a_barrier() throws MarsRoverException {
         Rover rover1 = new Rover(map, new Coordinate(4, 8), EAST);
-        assertThatThrownBy(() -> rover1.moveForward())
+        assertThatThrownBy(rover1::moveForward)
                 .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
         assertThat(rover1.getCoordinate()).isEqualTo(new Coordinate(4, 8));
         Rover rover2 = new Rover(map, new Coordinate(6, 8), EAST);
-        assertThatThrownBy(()->rover2.moveBackward())
+        assertThatThrownBy(rover2::moveBackward)
                 .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
+        assertThat(rover2.getCoordinate()).isEqualTo(new Coordinate(6, 8));
     }
 }
