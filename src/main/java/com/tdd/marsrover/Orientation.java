@@ -7,5 +7,5 @@ package com.tdd.marsrover;
  * Description:
  **/
 public enum Orientation {
-    EAST,WEST,SOUTH,NORTH
+    EAST, SOUTH, WEST, NORTH
 }

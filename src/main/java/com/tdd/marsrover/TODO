@@ -1,7 +1,7 @@
 1. map = new Map(10,10) -> map.width==10,map.height==10
 
 2. coordinate = new Coordinate(5,5) -> coordinate.x ==5 ,coordinate.y==5
-
+。
 3. coordinate = new Coordinate(5,5) -> coordinate == new Coordinate(5,5)
 
 4. barrier = new Barrier(6,6) -> barrier.coordinate= new Coordinate(6,6)

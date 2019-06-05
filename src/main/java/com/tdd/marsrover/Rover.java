@@ -1,7 +1,5 @@
 package com.tdd.marsrover;
 
-import static com.tdd.marsrover.Orientation.*;
-
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
@@ -10,12 +8,8 @@ import static com.tdd.marsrover.Orientation.*;
  **/
 public class Rover {
     private final Map map;
-    private final Coordinate coordinate;
+    private Coordinate coordinate;
     private Orientation orientation;
-
-    public enum Direction {
-        LEFT, RIGHT;
-    }
 
     public Rover(Map map, Coordinate coordinate, Orientation orientation) throws MarsRoverException {
         if (!coordinate.in(map)) {
@@ -23,17 +17,21 @@ public class Rover {
         }
         this.map = map;
         this.coordinate = coordinate;
-        if (this.map
+        this.orientation = orientation;
+        if (encounteredBarrier()) {
+            throw new MarsRoverException(String.format("Rover's coordinate(x:%d, y:%d) encountered a barrier", coordinate.getX(), coordinate.getY()));
+        }
+    }
+
+    private boolean encounteredBarrier() {
+        return this.map
                 .getBarriers()
                 .stream()
-                .anyMatch(barrier -> barrier.getCoordinate().equals(this.coordinate))) {
-            throw new MarsRoverException("Rover encountered a barrier");
-        }
-        this.orientation = orientation;
+                .anyMatch(barrier -> barrier.getCoordinate().equals(this.coordinate));
     }
 
     Coordinate getCoordinate() {
-        return new Coordinate(5, 5);
+        return this.coordinate;
     }
 
     Orientation getOrientation() {
@@ -41,53 +39,20 @@ public class Rover {
     }
 
     void turnLeft() {
-        switch (this.orientation) {
-            case EAST:
-                this.orientation = NORTH;
-                break;
-            case WEST:
-                this.orientation = SOUTH;
-                break;
-            case NORTH:
-                this.orientation = WEST;
-                break;
-            case SOUTH:
-                this.orientation = EAST;
-                break;
-            default:
-                break;
-        }
-    }
-
-    void turn(Direction direction) {
-        switch (direction) {
-            case LEFT:
-                this.turnLeft();
-                break;
-            case RIGHT:
-                this.turnRight();
-                break;
-            default:
-                break;
-        }
+        int index = (this.orientation.ordinal() + 3) % 4;
+        this.orientation = Orientation.values()[index];
     }
 
     void turnRight() {
-        switch (this.orientation) {
-            case EAST:
-                this.orientation = SOUTH;
-                break;
-            case WEST:
-                this.orientation = NORTH;
-                break;
-            case NORTH:
-                this.orientation = EAST;
-                break;
-            case SOUTH:
-                this.orientation = WEST;
-                break;
-            default:
-                break;
-        }
+        int index = (this.orientation.ordinal() + 5) % 4;
+        this.orientation = Orientation.values()[index];
+    }
+
+    void moveForward() {
+        this.coordinate = new Coordinate(this.coordinate.getX() + 1, this.coordinate.getY());
+    }
+
+    void moveBackward() {
+        this.coordinate = new Coordinate(this.coordinate.getX() - 1, this.coordinate.getY());
     }
 }
