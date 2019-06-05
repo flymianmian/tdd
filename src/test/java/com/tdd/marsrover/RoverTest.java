@@ -99,12 +99,31 @@ class RoverTest {
         Rover rover1 = new Rover(map, new Coordinate(4, 8), EAST);
         assertThatThrownBy(rover1::moveForward)
                 .isInstanceOf(MarsRoverException.class)
-                .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
+                .hasMessageContaining("Rover is move to a barrier (x:5, y:8)");
         assertThat(rover1.getCoordinate()).isEqualTo(new Coordinate(4, 8));
         Rover rover2 = new Rover(map, new Coordinate(6, 8), EAST);
         assertThatThrownBy(rover2::moveBackward)
                 .isInstanceOf(MarsRoverException.class)
-                .hasMessageContaining("Rover is move to a is a barrier (x:5, y:8)");
+                .hasMessageContaining("Rover is move to a barrier (x:5, y:8)");
         assertThat(rover2.getCoordinate()).isEqualTo(new Coordinate(6, 8));
+    }
+
+    @Test
+    void should_receive_command() throws MarsRoverException {
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        rover.receiveCommand("FBLR");
+        assertThat(rover.getCommands().size()).isEqualTo(4);
+        assertThat(rover.getCommands().get(0)).isEqualTo("F");
+        assertThat(rover.getCommands().get(1)).isEqualTo("B");
+        assertThat(rover.getCommands().get(2)).isEqualTo("L");
+        assertThat(rover.getCommands().get(3)).isEqualTo("R");
+    }
+
+    @Test
+    void should_throw_exception_when_receive_wrong_command() throws MarsRoverException{
+        Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
+        assertThatThrownBy(()->rover.receiveCommand("FBALR"))
+                .isInstanceOf(MarsRoverException.class)
+                .hasMessageContaining("Unknown command: A");
     }
 }

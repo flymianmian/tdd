@@ -1,6 +1,10 @@
 package com.tdd.marsrover;
 
 import java.rmi.MarshalException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +16,20 @@ public class Rover {
     private final Map map;
     private Coordinate coordinate;
     private Orientation orientation;
+    private List<String> commands;
+
+    void receiveCommand(String command) throws MarsRoverException {
+        List<String> commands = command.chars().mapToObj(c -> String.valueOf((char) c)).collect(Collectors.toList());
+        String wrongCommand = commands.stream().filter(c -> !c.matches("^[FBLR]$")).findFirst().orElse(null);
+        if (null != wrongCommand) {
+            throw new MarsRoverException("Unknown command: " + wrongCommand);
+        }
+        this.commands = commands;
+    }
+
+    List<String> getCommands() {
+        return this.commands;
+    }
 
     private enum Direction {
         FORWARD, BACKWARD
@@ -85,7 +103,7 @@ public class Rover {
         int yStep = getYStep(direction);
         Coordinate newCoordinate = new Coordinate(this.coordinate.getX() + xStep, this.coordinate.getY() + yStep);
         if (encounteredBarrier(newCoordinate)) {
-            throw new MarsRoverException(String.format("Rover is move to a is a barrier %s", newCoordinate.toString()));
+            throw new MarsRoverException(String.format("Rover is move to a barrier %s", newCoordinate.toString()));
         }
         this.coordinate = newCoordinate;
     }
