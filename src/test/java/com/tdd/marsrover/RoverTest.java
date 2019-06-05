@@ -165,11 +165,11 @@ class RoverTest {
     @Test
     void should_stay_and_throw_exception_when_rover_move_to_the_map_boundary() throws MarsRoverException {
         Rover rover = new Rover(map, new Coordinate(5, 5), EAST);
-        rover.receiveCommand("FFFFF");
+        rover.receiveCommand("BBBBBB");
         assertThatThrownBy(rover::executeCommand)
                 .isInstanceOf(MarsRoverException.class)
                 .hasMessageContaining("Rover is move to the map boundary");
-        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(9, 5));
+        assertThat(rover.getCoordinate()).isEqualTo(new Coordinate(0, 5));
         assertThat(rover.getOrientation()).isEqualTo(EAST);
     }
 }
