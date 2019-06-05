@@ -47,4 +47,12 @@ class SchemaTest {
         assertThat(flag).isNull();
     }
 
+    @Test
+    void test_add_flag(){
+        schema.addFlag(new Flag("g:array"));
+        assertThat(schema.hasFlag("g")).isTrue();
+        assertThat(schema.getFlag("g").type).isEqualTo("array");
+        assertThat(schema.getFlag("g").tag).isEqualTo("g");
+    }
+
 }

@@ -32,7 +32,8 @@ public class Map {
             this.barriers.add(barrier);
             return;
         }
-        throw new MarsRoverException(String.format("Barrier(x:%d y:%d) is out of Map(width:%d,height:%d)", barrier.getCoordinate().getX(), barrier.getCoordinate().getY(), this.width, this.height));
+        throw new MarsRoverException(String.format("Barrier(x:%d y:%d) is out of Map(width:%d,height:%d)",
+                barrier.getCoordinate().getX(), barrier.getCoordinate().getY(), this.width, this.height));
 
     }
 

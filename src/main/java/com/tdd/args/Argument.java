@@ -47,4 +47,11 @@ class Argument {
         }
         return this.value;
     }
+
+    String[] getArrayValue() throws ArgsException {
+        if (this.value == null) {
+            throw new ArgsException(String.format("No value found for array argument: %s", this.tag));
+        }
+        return this.value.split(",");
+    }
 }

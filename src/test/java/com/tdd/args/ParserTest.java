@@ -116,24 +116,45 @@ class ParserTest {
     }
 
     /**
+     * array argument
+     */
+    @Test
+    void should_return_array_when_array_tag_is_given() throws ArgsException {
+        schema.addFlag(new Flag("a:array"));
+        Args args = new Args(new String[]{"-a this,is,an,array"});
+        Parser parser = new Parser(schema, args);
+        assertThat(parser.getValue("a")).isEqualTo(new String[]{"this", "is", "an", "array"});
+    }
+
+    @Test
+    void should_throw_exception_when_array_argument_value_is_empty(){
+        schema.addFlag(new Flag("a:array"));
+        Args args = new Args(new String[]{"-a"});
+        Parser parser = new Parser(schema,args);
+        assertThatThrownBy(() -> parser.getValue("a"))
+                .isInstanceOf(ArgsException.class)
+                .hasMessageContaining("No value found for array argument: a");
+    }
+
+    /**
      * exception
      */
     @Test
-    void should_throw_exception_when_unknown_tag_is_given(){
+    void should_throw_exception_when_unknown_tag_is_given() {
         Args args = new Args(new String[]{"g"});
-        Parser parser = new Parser(schema,args);
+        Parser parser = new Parser(schema, args);
         assertThatThrownBy(() -> parser.getValue("g"))
                 .isInstanceOf(ArgsException.class)
                 .hasMessageContaining("Invalid argument tag found: g");
     }
 
     @Test
-    void should_throw_exception_when_unknown_type_is_given(){
-        Schema schema = new Schema(new String[]{"a:array"});
-        Args args = new Args(new String[]{"a this,is,an,array"});
-        Parser parser = new Parser(schema,args);
-        assertThatThrownBy(() -> parser.getValue("a"))
+    void should_throw_exception_when_unknown_type_is_given() {
+        Schema schema = new Schema(new String[]{"l:list"});
+        Args args = new Args(new String[]{"l this,is,a,list"});
+        Parser parser = new Parser(schema, args);
+        assertThatThrownBy(() -> parser.getValue("l"))
                 .isInstanceOf(ArgsException.class)
-                .hasMessageContaining("Invalid argument type found: a");
+                .hasMessageContaining("Invalid argument type found: list");
     }
 }

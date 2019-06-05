@@ -28,4 +28,8 @@ class Schema {
     Flag getFlag(String tag) {
         return this.flags.stream().filter(flag -> flag.tag.equals(tag)).findAny().orElse(null);
     }
+
+    void addFlag(Flag flag) {
+        this.flags.add(flag);
+    }
 }

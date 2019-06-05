@@ -1,5 +1,7 @@
 package com.tdd.args;
 
+import java.lang.reflect.Array;
+
 /**
  * Created with IntelliJ IDEA.
  * User: lai.yi
@@ -23,11 +25,13 @@ class Parser {
         Argument argument = this.args.getArgument(tag);
         switch (flag.type) {
             case "boolean":
-                return argument == null ? false : argument.getBooleanValue();
+                return argument != null && argument.getBooleanValue();
             case "integer":
                 return argument == null ? 0 : argument.getIntegerValue();
             case "string":
                 return argument == null ? "" : argument.getStringValue();
+            case "array":
+                return argument == null ? new String[]{}:argument.getArrayValue();
             default:
                 throw new ArgsException(String.format("Invalid argument type found: %s", flag.type));
         }
